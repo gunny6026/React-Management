@@ -37,7 +37,7 @@ class App extends Component {
   componentDidMount(){
     this.timer = setInterval(this.progress, 20)
     this.callApi()
-    .then(res => this.setState({customers:res}))
+    .then(res => this.setState({customers:res}),console.log("성공"))
     .catch(err => console.log("err:", err));
   }
 
@@ -53,13 +53,13 @@ class App extends Component {
 
   }
   render(){
-    /*const {classes} = this.props; */
+    const {classes} = this.props; 
 
-    console.log("확인 :", this.props)
-    console.log("확인2 :", this.props.classes)
+   
+    console.log("확인2 :", classes)
   return (
-    <Paper className={this.props.classes.root}>
-      <Table className={this.props.classes.table}>
+    <Paper className={classes.root}>
+      <Table className={classes.table}>
         <TableHead>
           <TableRow>
             <TableCell>번호</TableCell>
@@ -67,7 +67,7 @@ class App extends Component {
             <TableCell>이름</TableCell>
             <TableCell>생년월일</TableCell>
             <TableCell>성별</TableCell>
-            <TableCell>직업</TableCell>
+            <TableCell>직업d</TableCell>
           </TableRow>
             
         </TableHead>
@@ -89,7 +89,7 @@ class App extends Component {
         );}) : 
         <TableRow>
           <TableCell colSpan="6" align="center">
-            <CircularProgress className={this.props.classes.progress} variant="determinate"
+            <CircularProgress className={classes.progress} variant="determinate"
             value={this.state.completed} />
           </TableCell>
           </TableRow>}
