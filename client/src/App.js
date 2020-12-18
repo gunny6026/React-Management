@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import {withStyles} from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress'
+import CustomerAdd from './components/CustomerAdd';
 const styles = theme => ({
   root:{
     width: '100%',
@@ -29,15 +30,27 @@ const styles = theme => ({
 
 class App extends Component {
   
-  state = {
-    customers:"",
-    completed: 0
+  constructor(props){
+    super(props);
+    this.state = {
+      customers: '',
+      completed:0
+    }
+    this.stateRefresh = this.stateRefresh.bind(this);
+
+  }
+  stateRefresh () {
+    this.setState({
+        customers:'',
+        completed:0
+    });
+    
   }
   
   componentDidMount(){
     this.timer = setInterval(this.progress, 20)
     this.callApi()
-    .then(res => this.setState({customers:res}),console.log("성공"))
+    .then(res => this.setState({customers:res}),console.log(this.state.customers,"성공"))
     .catch(err => console.log("err:", err));
   }
 
@@ -56,8 +69,9 @@ class App extends Component {
     const {classes} = this.props; 
 
    
-    console.log("확인2 :", classes)
+    
   return (
+    <div>
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
@@ -98,8 +112,10 @@ class App extends Component {
 
         </Table>
 </Paper>
+<CustomerAdd stateRefresh={this.stateRefresh}/>
+</div>
   );
-}
+ }
 }
 
 
