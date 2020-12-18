@@ -50,13 +50,19 @@ class App extends Component {
   componentDidMount(){
     this.timer = setInterval(this.progress, 20)
     this.callApi()
-    .then(res => this.setState({customers:res}),console.log(this.state.customers,"성공"))
-    .catch(err => console.log("err:", err));
+    .then(res => this.setState({customers:res}) )
+    .catch(err => console.log("err:", err))
+
+    
+  }
+  componentWillUnmount(){
+    clearInterval(this.timer);
   }
 
   callApi = async () =>{
     const response = await fetch('/api/customers');
     const body = await response.json();
+    console.log("body :"  , body);
     return body;
   }
 
@@ -81,7 +87,8 @@ class App extends Component {
             <TableCell>이름</TableCell>
             <TableCell>생년월일</TableCell>
             <TableCell>성별</TableCell>
-            <TableCell>직업d</TableCell>
+            <TableCell>직업</TableCell>
+            <TableCell>설정</TableCell>
           </TableRow>
             
         </TableHead>
@@ -90,7 +97,7 @@ class App extends Component {
           
           {this.state.customers ?  this.state.customers.map( c => {
          return(
-          <Customer
+          <Customer stateRefresh={this.stateRefresh}
             key={c.index}
             id={c.id}
             image={c.image}
