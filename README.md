@@ -9,3 +9,9 @@ npm install --save axios
 ```
 npm install --save multer
 ```
+
+### material ui icons 설치
+
+```
+npm install --save @material-ui/icons
+```
